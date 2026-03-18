@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentRegistrationForm_MichaelBermio_
+namespace StudentRegistration
 {
     internal static class Program
     {
@@ -16,7 +16,8 @@ namespace StudentRegistrationForm_MichaelBermio_
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new StudentRegistration());
         }
     }
 }
+
