@@ -1,56 +1,77 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StudentRegistrationForm_MichaelBermio_
-{
-    public partial class Form1 : Form
+    namespace StudentRegistration
     {
-        public Form1()
+        public partial class StudentRegistration : Form
         {
-            InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            comboboxday.Items.Add("-Day-");
-            comboboxmonth.Items.Add("-Month-");
-            comboboxyear.Items.Add("-Year-");
-
-
-
-            for (int day = 1; day <= 31; day++)
+            public StudentRegistration()
             {
-                comboboxday.Items.Add(day);
+                InitializeComponent();
             }
 
-
-            for (int month = 1; month <= 12; month++)
+            private void StudentRegistration_Load(object sender, EventArgs e)
             {
-                comboboxmonth.Items.Add(month);
+                {
+
+                    comboboxday.Items.Add("-Day-");
+                    comboboxmonth.Items.Add("-Month-");
+                    comboboxyear.Items.Add("-Year-");
+                    comboboxprogram.Items.Add("-Program-");
+
+
+                    ArrayList programsList = new ArrayList();
+                    programsList.Add("Bachelor of Computer Engineering");
+                    programsList.Add("Bachelor of Computer Science");
+                    programsList.Add("Bachelor of Information System");
+                    programsList.Add("Bachelor of Information Technology");
+
+
+                    ArrayList monthList = new ArrayList();
+                    monthList.AddRange(new string[] {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"});
+
+
+
+                    for (int day = 1; day <= 31; day++)
+                    {
+                        comboboxday.Items.Add(day);
+                    }
+
+                    foreach (String m in monthList)
+                    {
+                        comboboxmonth.Items.Add(m);
+                    }
+
+                    int currentYear = DateTime.Now.Year;
+                    for (int year = 1950; year <= currentYear; year++)
+                    {
+                        comboboxyear.Items.Add(year);
+                    }
+
+                    foreach (string p in programsList)
+                    {
+                        comboboxprogram.Items.Add(p);
+                    }
+
+                comboboxday.SelectedIndex = 0;
+                comboboxmonth.SelectedIndex = 0;
+                comboboxyear.SelectedIndex = 0;
+                comboboxprogram.SelectedIndex = 0;
+                }
             }
 
-
-            int currentYear = DateTime.Now.Year;
-            for (int year = 1900; year <= currentYear; year++)
-            {
-                comboboxyear.Items.Add(year);
-            }
-
-
-            comboboxday.SelectedIndex = 0;
-            comboboxmonth.SelectedIndex = 0;
-            comboboxyear.SelectedIndex = 0;
-        }
-
-
-        private void Register_Click(object sender, EventArgs e)
+            private void Register_Click(object sender, EventArgs e)
         {
 
             if (string.IsNullOrWhiteSpace(lastnamebox.Text))
@@ -77,7 +98,7 @@ namespace StudentRegistrationForm_MichaelBermio_
                 return;
             }
 
-            if (!buttonmale.Checked && !buttonmale.Checked)
+            if (!buttonmale.Checked && !buttonfemale.Checked)
             {
                 MessageBox.Show("Please select a gender.",
                     "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -104,16 +125,24 @@ namespace StudentRegistrationForm_MichaelBermio_
                 return;
             }
 
+            if (comboboxprogram.SelectedIndex == 0)
+            {
+                MessageBox.Show("Please select a program.",
+                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string day = comboboxday.SelectedItem.ToString();
             string month = comboboxmonth.SelectedItem.ToString();
             string year = comboboxyear.SelectedItem.ToString();
 
+
             string gender = "";
-            if (buttonmale.Checked)
+            if (!buttonmale.Checked)
             {
                 gender = "Male";
             }
-            else if (buttonfemale.Checked)
+            else if (!buttonfemale.Checked)
             {
                 gender = "Female";
             }
@@ -126,9 +155,13 @@ namespace StudentRegistrationForm_MichaelBermio_
 
             string message = "Student name: " + fullName + "\n"
                            + "Gender: " + gender + "\n"
-                           + "Date of birth: " + dateOfBirth;
+                           + "Date of birth: " + dateOfBirth
+                           + "\nProgram: " + comboboxprogram.SelectedItem.ToString();
 
             MessageBox.Show(message);
         }
     }
 }
+
+
+
