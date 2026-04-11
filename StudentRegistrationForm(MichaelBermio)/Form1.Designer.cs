@@ -283,7 +283,7 @@ namespace StudentRegistration
         private System.Windows.Forms.TextBox middlenamebox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton buttonmale;
-        private System.Windows.Forms.RadioButton buttonfemale;
+        private System.Windows.Forms.RadioButton buttonfemale;\
         private System.Windows.Forms.ComboBox comboboxday;
         private System.Windows.Forms.ComboBox comboboxmonth;
         private System.Windows.Forms.ComboBox comboboxyear;
